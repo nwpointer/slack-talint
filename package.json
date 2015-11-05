@@ -1,0 +1,28 @@
+{
+  "name": "slack-talint",
+  "version": "0.0.1",
+  "description": "a slack integration for skill based communication",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nwpointer/slack-talint.git"
+  },
+  "keywords": [
+    "slack",
+    "talint"
+  ],
+  "author": "nwpointer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nwpointer/slack-talint/issues"
+  },
+  "homepage": "https://github.com/nwpointer/slack-talint#readme",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "express-json": "^1.0.0"
+  }
+}
