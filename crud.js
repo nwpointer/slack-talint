@@ -21,5 +21,5 @@ app.get('/', function(req,res){
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
-	app.listen(8000);
+	app.listen(80);
 });
