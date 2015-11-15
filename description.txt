@@ -1,0 +1,30 @@
+Mini is a small collection of interchangeable micro services, styles and spesifications for quickly prototypeing applications.
+
+the ideal workflow would involve the description of some basic models and some views that update those views.
+
+it should not solve all of your problems or provide unnessisary 'magic' that takes time to learn. 
+
+it should favor the use of existing projects and libraries where a viable solution all ready exists.
+
+the project as a whole should have no hard dependencies and should strive to be as simple as possible
+
+
+component proposals:
+	- basic styles library (layout, typography)
+	- HTML Application spesification to reduce html-css-js coupling  
+	- some kind of persistance abstraction (define schemas and you are good to go)
+	- react-based ui component libary
+	- higher level react components / mixins
+	- generic server 
+	- chat/socket stuff
+	- data import / export tools (db,excell, wordpress, text)
+	- user accounts
+	- auto-api
+	- distributed network (no central server)
+
+	-task spesific packages
+		- online game engine
+		- cms
+		- static pages
+		- crud app
+

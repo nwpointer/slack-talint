@@ -1,0 +1,38 @@
+D running server to touch
+- persist user skills related to one or more slack accounts
+- persist skills list
+- return noise from server on /request
+- parse arguments on request
+
+
+Models:
+
+skills{
+	name: ""
+	id: #
+	tags:[]
+}
+user{
+	id
+	slack_key(s):[]
+	skills:[
+		->id
+	]
+}
+organization{
+	slack group identifier:""/id
+	admins:[]
+	skills:[
+		->id
+	]
+	users:[
+		->id
+	]
+}
+
+
+tasks:
+	- sign up my organization
+	- modify my skills
+	- get list of people with x,y,z skills
+	- message based in current-group new group w/ auto invite or personal message 
