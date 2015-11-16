@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var skillsSchema = mongoose.Schema({
-	name: String,
+	name: {type: String, unique : true, dropDups: true},
 	slackGroup: String,
 	users:[],
 	tags:[]

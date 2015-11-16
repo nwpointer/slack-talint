@@ -1,34 +1,14 @@
 D running server to touch
+D return noise from server on /request
 - persist user skills related to one or more slack accounts
 - persist skills list
-- return noise from server on /request
 - parse arguments on request
 
-
-Models:
-
-skills{
-	name: ""
-	id: #
-	tags:[]
-}
-user{
-	id
-	slack_key(s):[]
-	skills:[
-		->id
-	]
-}
-organization{
-	slack group identifier:""/id
-	admins:[]
-	skills:[
-		->id
-	]
-	users:[
-		->id
-	]
-}
+todo:
+- add/delete skill from org (if admin)
+- learn/unlearn skill (crud to profile)
+- find [tags] -> returns people
+- set up org auth
 
 
 tasks:

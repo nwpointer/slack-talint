@@ -4,7 +4,8 @@
   "description": "a slack integration for skill based communication",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start": "forever -c 'node --harmony_destructuring' -w crud.js"
   },
   "repository": {
     "type": "git",
