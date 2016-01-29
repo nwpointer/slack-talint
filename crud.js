@@ -58,7 +58,7 @@ app.get('/',(req,res)=>{
 app.get('/register',(req,res)=>{
 	var args = req.params;
 	// console.log();	
-	res.send(JSON.stringify(args));
+	res.send(JSON.stringify(req));
 })
 
 app.get('/9C98A45F7C2BD1A34431E1BDADEDE98D.txt', (req,res)=>{
