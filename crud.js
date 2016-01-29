@@ -55,10 +55,10 @@ app.get('/',(req,res)=>{
 	res.sendFile('/root/slack-talint/index.html')
 })
 
-app.get('/register',(req,res)=>{
+app.get('/register/:code',(req,res)=>{
 	var args = req.params;
 	// console.log();	
-	res.send(JSON.stringify(req));
+	res.send(JSON.stringify(args));
 })
 
 app.get('/9C98A45F7C2BD1A34431E1BDADEDE98D.txt', (req,res)=>{
