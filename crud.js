@@ -60,7 +60,9 @@ app.get('/register',(req,res)=>{
 	var args = req.query;
 	return request('https://slack.com/api/oauth.access?client_id=13888551717.14619702727&client_secret=d0d5c68b155abbed2f0d6fd47b2ec78a&code=' + args.code , function (error, response, body) {
 	  if (!error && response.statusCode == 200) {
-	    res.send(body);
+	    res.send("success! you can log into slack now and use the /talint command. please see the /about page for more information on how to use the talint slack integration");
+	  }else{
+	  	res.send(error);
 	  }
 	})	
 	// res.send(JSON.stringify(args));
