@@ -3,6 +3,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
+var request = require('request');
 
 var fs = require('fs');
 var http = require('http');
@@ -57,8 +58,12 @@ app.get('/',(req,res)=>{
 
 app.get('/register',(req,res)=>{
 	var args = req.query;
-	// console.log();	
-	res.send(JSON.stringify(args));
+	return request('http://www.google.com', function (error, response, body) {
+	  if (!error && response.statusCode == 200) {
+	    res.send(JSON.stringify(body));
+	  }
+	})	
+	// res.send(JSON.stringify(args));
 })
 
 app.get('/9C98A45F7C2BD1A34431E1BDADEDE98D.txt', (req,res)=>{
