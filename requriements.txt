@@ -1,18 +1,23 @@
 D running server to touch
 D return noise from server on /request
-- persist user skills related to one or more slack accounts
-- persist skills list
-- parse arguments on request
+D persist user skills related to one or more slack accounts
+D persist skills list
+D parse arguments on request
 
 todo:
-- add/delete skill from org (if admin)
-- learn/unlearn skill (crud to profile)
-- find [tags] -> returns people
-- set up org auth
+D set up org auth
+D delete skill from org (if admin)
+D unlearn skill (crud to profile)
+D learn or add [tags] -> returns adds all tags to skill list
+
+ 
+
+- find [tags] -> returns people who match all tags
+
 
 
 tasks:
 	- sign up my organization
-	- modify my skills
+	D modify my skills
 	- get list of people with x,y,z skills
 	- message based in current-group new group w/ auto invite or personal message 

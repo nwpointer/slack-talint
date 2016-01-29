@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 
+
 var skillsSchema = mongoose.Schema({
 	name: {type: String, unique : true, dropDups: true},
 	slackGroup: String,
@@ -54,21 +55,87 @@ function dump(model, cb){
 module.exports.dump = dump;
 
 function newSkill(slackGroup, name, cb){
-	var skill = new Skills({slackGroup, name})
-	skill.save((err,skill)=>{
-		if(err){
-			if(err.code == 11000){
-				cb(name + ' has allready been added');
+	// console.log(name);
+	name.map((n)=>{	
+		var skill = new Skills({slackGroup, name:n})
+		skill.save((err,skill)=>{
+			if(err){
+				if(err.code == 11000){
+					cb(n + ' has allready been added');
+				}
+			}else{
+				cb(skill.name + ' added successfully');
 			}
-		}else{
-			cb(skill.name + ' added successfully');
-		}
+		})
 	})
-}
 
+		// var skill = new Skills({slackGroup, n})
+		// skill.save((err,skill)=>{
+		// 	if(err){
+		// 		if(err.code == 11000){
+		// 			cb(n + ' has allready been added');
+		// 		}
+		// 	}else{
+		// 		cb(skill.name + ' added successfully');
+		// 	}
+		//})
+
+	// var skill = new Skills({slackGroup, name})
+	// skill.save((err,skill)=>{
+	// 	if(err){
+	// 		if(err.code == 11000){
+	// 			cb(name + ' has allready been added');
+	// 		}
+	// 	}else{
+	// 		cb(skill.name + ' added successfully');
+	// 	}
+	// })
+}
 module.exports.newSkill = newSkill;
 
+function removeSkill(slackGroup, name, cb){
+	Skills.findOne({slackGroup, name}, (err, skill)=>{
+		if(err){
+			console.log(err);
+			return cb(err)
+		}
+		skill.remove();
+		cb(skill.name + ' removed successfully');
+	})
+}
+module.exports.removeSkill = removeSkill;
+
+
 function learnSkill(slackGroup, slackUser, name, cb){
+	var message = "";
+	name.map((n)=>{
+		Skills.findOne({slackGroup, name:n}, (err, skill)=>{
+			if(err){
+				message +='something weird has happend';
+			}else{
+				if(!skill){
+					message+='that skill has not been added to the list of skills yet'
+					// would you like me to add it?
+				}else{
+					// cb('ok found it');
+					// add skill to users[]
+					if (skill.users.indexOf(slackUser) > -1){
+						message += "user allready knows this skill"
+					}else{
+						skill.users.push(slackUser);
+						skill.save(status);
+						message += 'user has learned ' + n;
+					}
+				}
+			}
+		})
+	})
+	cb("talint will add " + name + " to your profile");
+	
+}
+module.exports.learnSkill = learnSkill;
+
+function forgetSkill(slackGroup, slackUser, name, cb){
 	Skills.findOne({slackGroup, name}, (err, skill)=>{
 		if(err){
 			cb('something weird has happend')
@@ -80,17 +147,22 @@ function learnSkill(slackGroup, slackUser, name, cb){
 				// cb('ok found it');
 				// add skill to users[]
 				if (skill.users.indexOf(slackUser) > -1){
-					cb("user allready knows this skill")
-				}else{
-					skill.users.push(slackUser);
+					i = skill.users.indexOf(slackUser)
+					skill.users.splice(i,1);
 					skill.save(status);
-					cb('user has learned ' + name);
+					cb('skill removed')
+				}else{
+					cb("error")
+					// skill.users.push(slackUser);
+					// skill.save(status);
+					// cb('user has learned ' + name);
 				}
 			}
 		}
 	})
 }
-module.exports.learnSkill = learnSkill;
+module.exports.forgetSkill = forgetSkill;
+
 
 function listSkills(slackGroup, users, cb){
 	users = users || null;
@@ -113,14 +185,19 @@ function listSkills(slackGroup, users, cb){
 
 module.exports.listSkills = listSkills;
 
-function findUsersBySkill (slackGroup, name, cb) {
-	if(!name){
+function findUsersBySkill (slackGroup, skillprofile, cb) {
+	// console.log(skillprofile);
+	if(!skillprofile){
 		cb('please enter a skill');
 	}else{
-		Skills.find({slackGroup, name}, (err, skills)=>{
-			cb("the following users match that skill profile: "+skills.map(v=>{
-				return v.users.map(u=>"@"+u).join(", ")
-			}).join(""))
+		userSet= new Set([]);
+		Skills.find({slackGroup, name: {$in: skillprofile}}, (err, skills)=>{
+			skills.forEach((s)=>{
+				s.users.forEach((u)=>{
+					userSet.add(u)
+				})
+			})
+			cb("the following users match that skill profile: "+ [...userSet].map(u=>"@"+u).join(", "))
 		})
 	}
 	
